@@ -3,12 +3,13 @@ entries:
   hello:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-03-10T14:31:18.757569+09:00"
+    created: "2022-03-10T15:24:00.780599+09:00"
     description: A Helm chart for Kubernetes
-    digest: 4ae849de696bc285eea607c92d3ac761152cfa15d5fcc4e338d0032811adae6a
+    digest: d10659a688529e0ca4ed07b0ecdc6ebce89c84fee0a365a462874fc49f4ea2c6
+    kubeVersion: v1.23.3
     name: hello
     type: application
     urls:
-    - hello-0.1.0.tgz
-    version: 0.1.0
-generated: "2022-03-10T14:31:18.73755+09:00"
+    - hello-0.2.0.tgz
+    version: 0.2.0
+generated: "2022-03-10T15:24:00.779391+09:00"

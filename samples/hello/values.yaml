@@ -5,9 +5,9 @@
 replicaCount: 1
 
 image:
-  repository: "io.kr.ncr.ntruss.com/on-nks/hello"
-  pullPolicy: IfNotPresent
+  repository: "nginxdemos/hello"
   tag: "plain-text"
+  pullPolicy: IfNotPresent
 
 imagePullSecrets: []
 nameOverride: ""
@@ -34,7 +34,7 @@ securityContext: {}
 service:
   type: NodePort
   port: 80
-  targetPort: 8080
+  targetPort: 80
 
 ingress:
   enabled: false
@@ -67,7 +67,7 @@ resources: {}
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 100
+  maxReplicas: 5
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 

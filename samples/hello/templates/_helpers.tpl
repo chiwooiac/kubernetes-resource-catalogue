@@ -32,10 +32,12 @@
     Common labels
 */}}
 {{- define "hello.labels" -}}
-helm.sh/chart: {{ include "hello.chart" . }}
+helm.app/chart: {{ include "hello.chart" . }}
+helm.app/version: {{ .Chart.AppVersion | quote }}
 {{ include "hello.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+app-version: {{ .Chart.Version | quote }}
+app.kubernetes.io/version: {{ .Chart.KubeVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
