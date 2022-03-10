@@ -1,11 +1,13 @@
 # helm-chart
 
-## create new chart
+## helm-chart 기본 
+
+### 신규 helm-chart 생성
 ```
 helm create hello
 ```
 
-## chart directory layout
+### helm-chart 디렉토리 전개 구조
 ```
 .
 ├── Chart.yaml
@@ -23,6 +25,80 @@ helm create hello
 └── values.yaml
 ```
 
+### helm-chart 검증
+```shell
+helm lint hello
+```
+
+### helm-chart manifest 확인 
+```shell
+helm install hello ./hello --dry-run --debug
+```
+
+### helm-chart 로컬 배포
+```shell
+helm install hello ./hello
+```
+
+### helm-chart 패키징
+```shell
+helm package hello
+```
+
+## helm 저장소
+
+### repo 목록
+```shell
+helm repo list
+```
+
+### chart 검색
+- Local 에 등록된 저장소에서 chart 를 검색 합니다.
+```shell
+helm search repo redis
+```
+
+- Public 에 공개된 chart 를 검색 합니다.  
+  (만약 `No results found` 와 같이 검색되지 않는다면 Public 에서 검색할 수 있습니다.)
+```shell
+helm search hub redis --list-repo-url
+```
+
+- repo 등록 및 chart 검색
+```shell
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm search repo redis
+```
+
+## Chart 배포
+
+Github 계정 및 저장소 생성은 생략 합니다.
+- [create-a-repo](https://docs.github.com/en/get-started/quickstart/create-a-repo) 가이드 참고
+
+### Github 프로젝트 구성 
+
+- checkout 
+```
+git clone https://github.com/chiwooiac/catalogue-resource.git
+cd catalogue-resource
+```
+
+### hello 패키지 및 index 등록
+```shell
+mkdir -p /helm/stable
+cd helm/stable
+helm create hello
+helm package hello ./hello
+helm repo index . 
+```
+
+### git add 
+```shell
+git add hello-0.1.0.tgz
+git index.yaml
+git commit -m "deploy hello helm chart"
+git push
+```
 
 ## basic examples
 
