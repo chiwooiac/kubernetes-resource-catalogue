@@ -1,0 +1,14 @@
+apiVersion: v2
+
+name: mysql
+
+description: A Helm chart for mysql-galera cluster.
+
+type: application
+
+# Chart version
+version: 1.0.0
+
+appVersion: "8.0.28"
+
+kubeVersion: "v1.23.3"

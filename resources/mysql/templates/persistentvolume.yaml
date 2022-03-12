@@ -1,0 +1,30 @@
+{{- $index := 0 -}}
+{{- $fullname := (include "mysql.fullname" .)  -}}
+{{- $storage := .Values.volume.storage -}}
+{{- $storageClassName := include "mysql.storageClassName" . -}}
+{{- $pvLabels := (include "mysql.pvLabels" .) -}}
+{{- range $i, $e := until (int .Values.replicaCount) }}
+---
+{{- $index := (add $index 1 .) -}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ print $fullname "-" $index "-pv"}}
+  labels:
+    {{- include "mysql.pvLabels" $ | nindent 4 }}
+spec:
+  capacity:
+    storage: {{ $.Values.volume.storage }}
+  storageClassName: {{ include "mysql.storageClassName" $ }}
+  persistentVolumeReclaimPolicy: Delete
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/mysql-{{ $index }}
+    type: DirectoryOrCreate
+  {{- with $.Values.nodeAffinity }}
+  nodeAffinity:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+{{- end}}
