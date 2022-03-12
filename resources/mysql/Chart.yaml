@@ -6,9 +6,10 @@ description: A Helm chart for mysql-galera cluster.
 
 type: application
 
-# Chart version
-version: 8.0.28
+# helm chart version (GoVersion of helm version)
+version: "1.17.0"
 
-appVersion: "1.0.0"
+# mysql  version
+appVersion: "8.0.28"
 
 kubeVersion: "v1.23.3"

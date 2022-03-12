@@ -4,6 +4,8 @@ description: A Helm chart for Kubernetes
 
 type: application
 
-version: 3.1.0
+# helm chart version (GoVersion of helm version)
+version: "1.17.0"
 
-appVersion: "1.0.0"
+# kafka-kraft version
+appVersion: "3.1.0"
