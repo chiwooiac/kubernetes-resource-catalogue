@@ -3,7 +3,7 @@ entries:
   hello:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-03-12T21:24:04.505705+09:00"
+    created: "2022-03-13T04:38:08.470756+09:00"
     description: A Helm chart for Kubernetes
     digest: d10659a688529e0ca4ed07b0ecdc6ebce89c84fee0a365a462874fc49f4ea2c6
     kubeVersion: v1.23.3
@@ -12,16 +12,27 @@ entries:
     urls:
     - hello-0.2.0.tgz
     version: 0.2.0
+  kafka:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-03-13T04:38:08.471891+09:00"
+    description: A Helm chart for Kubernetes
+    digest: 8833598e80935f39b6be9cdad412e4fb75dc783cdbd56290557472a832f00188
+    name: kafka
+    type: application
+    urls:
+    - kafka-3.1.0.tgz
+    version: 3.1.0
   mysql:
   - apiVersion: v2
-    appVersion: 8.0.28
-    created: "2022-03-12T21:24:04.506357+09:00"
+    appVersion: 1.0.0
+    created: "2022-03-13T04:38:08.47296+09:00"
     description: A Helm chart for mysql-galera cluster.
-    digest: 11ba99810315bc4c0dce6a9f1b29d886f40e2a2a7e43c8b3815c3e8067c5fa5f
+    digest: f3eec95ccec24b9a1eaf49c989bbacc0beabdcaec6fb9e754d14861e69008647
     kubeVersion: v1.23.3
     name: mysql
     type: application
     urls:
-    - mysql-1.0.0.tgz
-    version: 1.0.0
-generated: "2022-03-12T21:24:04.503033+09:00"
+    - mysql-8.0.28.tgz
+    version: 8.0.28
+generated: "2022-03-13T04:38:08.467976+09:00"

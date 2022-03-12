@@ -1,13 +1,14 @@
-# helm-chart
+# helm
 
-## helm-chart 기본 
+## helm 명령어  
 
-### 신규 helm-chart 생성
+### 신규 chart 생성
+
 ```
 helm create hello
 ```
 
-### helm-chart 디렉토리 전개 구조
+### chart 디렉토리 전개 구조
 ```
 .
 ├── Chart.yaml
@@ -25,29 +26,30 @@ helm create hello
 └── values.yaml
 ```
 
-### helm-chart 검증
+### chart 검증
 ```shell
 helm lint hello
 ```
 
-### helm-chart manifest 확인 
+### chart manifest 확인 
 ```shell
 helm install hello ./hello --dry-run --debug
 ```
 
-### helm-chart 로컬 배포
-```shell
-helm install hello ./hello
-```
-
-### helm-chart 패키징
+### chart 패키징
 ```shell
 helm package hello
+```
+
+### chart 서비스 배포
+```shell
+helm install hello ./hello
 ```
 
 ## helm 저장소
 
 ### repo 목록
+
 ```shell
 helm repo list
 ```
@@ -70,29 +72,23 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm search repo redis
 ```
 
-## Chart 배포
+## Custom chart 배포
+helm chart 를 패키지 하고 리모트 저장소(github)에 업로드 합니다.
 
-Github 계정 및 저장소 생성은 생략 합니다.
-- [create-a-repo](https://docs.github.com/en/get-started/quickstart/create-a-repo) 가이드 참고
+Github 계정 및 저장소 생성 [create-a-repo](https://docs.github.com/en/get-started/quickstart/create-a-repo) 가이드를 참고 하세요.
 
-### Github 프로젝트 구성 
-
-- checkout 
-```
-git clone https://github.com/chiwooiac/catalogue-resource.git
-cd catalogue-resource
-```
-
-### hello 패키지 및 index 등록
+### hello 패키지 
 ```shell
-mkdir -p /helm/stable
-cd helm/stable
-helm create hello
 helm package hello ./hello
-helm repo index . 
 ```
 
-### git add 
+### index 목록 추가 / 갱신
+```
+helm repo index .
+```
+
+### hello 패키지 업로드
+패키징 된 tgz 파일과 index.yaml 인덱스 파일만 저장소에 추가하여 github 로 push 합니다.
 ```shell
 git add hello-0.1.0.tgz
 git index.yaml
@@ -100,20 +96,86 @@ git commit -m "deploy hello helm chart"
 git push
 ```
 
-## basic examples
-
-### exam01-hello
-templates 폴더를 모두 삭제 하고 다음의 내용으로 configmap.yaml 파일을 생성 합니다.
-
-- [exam01-hello/templates/configmap.yaml](./exam01-hello/templates/configmap.yaml) 파일 참고
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: hello-cm
-data:
-  value: "Hello World"
+### 리모트 저장소(Github) 등록 및 확인
 ```
+# 사전에 github 저장소를 GitHub Pages 로 발행 해야 한다. (저장소의 Settings > Pages 에서 설정 가능)  
+# https://chiwooiac.github.io/catalogue-resource/helm-charts 에 push 한 경우  
+helm repo add chiwoo https://chiwooiac.github.io/catalogue-resource/helm-charts
+
+helm repo list
+```
+
+### hello 서비스 배포
+새로운 namespace 에 애플리케이션을 배포하기 위해 'sample' 네임스페이스를 생성하고 여기에 서비스를 배포 합니다.
+```
+helm search repo hello
+
+kubectl create namespace sample
+
+helm install hello chiwoo/hello --namespace sample
+
+# 배포 내역 확인 
+helm list -A
+```
+
+### hello 서비스 삭제
+```
+helm uninstall hello -n sample
+
+# 배포 내역 확인
+helm list -A
+[aSaA]()
+```
+
+## Helm 가이드
+
+```
+helm create hello 
+```
+
+### hello
+
+```shell
+aa
+```
+
+[deployment.yaml](./samples/hello/templates/deployment.yaml)
+
+Helm 의 템플릿 지시어는 `{{ }}` 으로 정의 합니다.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # _helpers.tpl 의 {{- define "hello.fullname" -}} 으로 정의 합니다.
+  # 특히 include <속성명> . 에서 `'` 은 현재 위치에 렌더링 하라는 포지션 입니다
+  name: {{ include "hello.fullname" . }}
+  # _helpers.tpl 의 {{- define "hello.labels" -}} 으로 정의 합니다.
+  # include 앞의 `-` 는 빈줄을 제거하는 지시자 이고, | nindent 4 는 파이프라인 지시자로 4 칸의 뛰어쓰기와 
+  # include 지시자가 첫번째 칼럼에 오지 않아도 된다는 의미 입니다.  
+  labels:
+    {{- include "hello.labels" . | nindent 4 }}
+
+    affinity:
+      {{- toYaml . | nindent 8 }}
+```
+
+
+- 
+- include "hello.labels" . | nindent 4 }}
+```
+- {{ include "hello.fullname" . }} 의 경우 _helpers.tpl 의 아래와 같이 정의 되어 있습니다.
+
+```shell
+{{- define "hello.fullname" -}}
+{{- end }}
+```
+
+```shell
+{{- include "hello.labels" . | nindent 4 }} 지시어는 
+
+```
+
 
 - install exam01-hello
 helm install 명령을 통해 exam01-hello 배포 할 수 있습니다. 
