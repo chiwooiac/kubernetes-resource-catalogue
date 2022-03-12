@@ -1,0 +1,89 @@
+{{- $sfsName := print (include "kafka.name" .) "-svc" -}}
+{{- $kafkaLogsHome := "/data/kafka" -}}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "kafka.fullname" . }}
+  labels:
+    {{- include "kafka.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ $sfsName }}
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "kafka.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "kafka.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "kafka.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 9092
+              protocol: TCP
+            - containerPort: 9093
+              protocol: TCP
+          env:
+            - name: REPLICAS
+              value: "{{ .Values.replicaCount }}"
+            - name: NAMESPACE
+              value: {{ .Release.Namespace }}
+            - name: SERVICE
+              value: {{ $sfsName }}
+            - name: KAFKA_CLUSTER_ID
+              value: "{{ .Values.kafka.clusterId }}"
+            - name: KAFKA_LOGS_HOME
+              value: {{ $kafkaLogsHome }}
+            - name: KAFKA_HEAP_OPTS
+              value: "-Xms1G -Xmx1G"
+            - name: KAFKA_OPTS
+              value: "-Djava.net.preferIPv4Stack=True"
+          volumeMounts:
+            - name: kafka-pvc
+              mountPath: {{ $kafkaLogsHome }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: kafka-pvc
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: {{ include "kafka.storageClassName" . }}
+        resources:
+          requests:
+            storage: {{ .Values.volume.storage }}
+        selector:
+          matchLabels:
+            {{- include "kafka.pvLabels" . | nindent 12 }}

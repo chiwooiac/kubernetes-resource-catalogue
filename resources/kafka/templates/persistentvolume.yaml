@@ -1,0 +1,30 @@
+{{- $index := 0 -}}
+{{- $fullname := (include "kafka.fullname" .)  -}}
+{{- $storage := .Values.volume.storage -}}
+{{- $storageClassName := include "kafka.storageClassName" . -}}
+{{- $pvLabels := (include "kafka.pvLabels" .) -}}
+{{- range $i, $e := until (int .Values.replicaCount) }}
+---
+{{- $index := (add $index 1 .) -}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ print $fullname "-" $index "-pv"}}
+  labels:
+    {{- $pvLabels | nindent 4 }}
+spec:
+  capacity:
+    storage: {{ $.Values.volume.storage }}
+  storageClassName: {{ $storageClassName }}
+  persistentVolumeReclaimPolicy: Delete
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/kafka-{{ $index }}
+    type: DirectoryOrCreate
+  {{- with $.Values.nodeAffinity }}
+  nodeAffinity:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+{{- end}}
