@@ -11,11 +11,11 @@ kind: PersistentVolume
 metadata:
   name: {{ print $fullname "-" $index "-pv"}}
   labels:
-    {{- include "mysql.pvLabels" $ | nindent 4 }}
+    {{- $pvLabels | nindent 4 }}
 spec:
   capacity:
     storage: {{ $.Values.volume.storage }}
-  storageClassName: {{ include "mysql.storageClassName" $ }}
+  storageClassName: {{ $storageClassName }}
   persistentVolumeReclaimPolicy: Delete
   accessModes:
     - ReadWriteOnce

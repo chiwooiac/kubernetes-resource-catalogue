@@ -112,10 +112,10 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: standard
+        storageClassName: {{ include "mysql.storageClassName" . }}
         resources:
           requests:
-            storage: 1Gi
+            storage: {{ .Values.volume.storage }}
         selector:
           matchLabels:
             {{- include "mysql.pvLabels" . | nindent 12 }}
