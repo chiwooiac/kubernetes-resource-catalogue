@@ -3,7 +3,7 @@ entries:
   hello:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-03-10T15:24:00.780599+09:00"
+    created: "2022-03-12T21:24:04.505705+09:00"
     description: A Helm chart for Kubernetes
     digest: d10659a688529e0ca4ed07b0ecdc6ebce89c84fee0a365a462874fc49f4ea2c6
     kubeVersion: v1.23.3
@@ -12,4 +12,16 @@ entries:
     urls:
     - hello-0.2.0.tgz
     version: 0.2.0
-generated: "2022-03-10T15:24:00.779391+09:00"
+  mysql:
+  - apiVersion: v2
+    appVersion: 8.0.28
+    created: "2022-03-12T21:24:04.506357+09:00"
+    description: A Helm chart for mysql-galera cluster.
+    digest: 11ba99810315bc4c0dce6a9f1b29d886f40e2a2a7e43c8b3815c3e8067c5fa5f
+    kubeVersion: v1.23.3
+    name: mysql
+    type: application
+    urls:
+    - mysql-1.0.0.tgz
+    version: 1.0.0
+generated: "2022-03-12T21:24:04.503033+09:00"
