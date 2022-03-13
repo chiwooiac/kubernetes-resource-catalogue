@@ -3,7 +3,7 @@ entries:
   hello:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2022-03-13T04:49:13.426687+09:00"
+    created: "2022-03-13T18:48:28.797395+09:00"
     description: A Helm chart for Kubernetes
     digest: d10659a688529e0ca4ed07b0ecdc6ebce89c84fee0a365a462874fc49f4ea2c6
     kubeVersion: v1.23.3
@@ -15,7 +15,7 @@ entries:
   kafka:
   - apiVersion: v2
     appVersion: 3.1.0
-    created: "2022-03-13T04:49:13.427995+09:00"
+    created: "2022-03-13T18:48:28.804752+09:00"
     description: A Helm chart for Kubernetes
     digest: 636fef1680195466f08125bbd87d1d63d4f6db5725768da5e4ad468cda91b582
     name: kafka
@@ -26,7 +26,7 @@ entries:
   mysql:
   - apiVersion: v2
     appVersion: 8.0.28
-    created: "2022-03-13T04:49:13.42872+09:00"
+    created: "2022-03-13T18:48:28.807631+09:00"
     description: A Helm chart for mysql-galera cluster.
     digest: 2748e6bece4f5fa9a191dff7c55323ce10dc86bf25c668d879694e2af1adb616
     kubeVersion: v1.23.3
@@ -35,4 +35,15 @@ entries:
     urls:
     - mysql-1.17.0.tgz
     version: 1.17.0
-generated: "2022-03-13T04:49:13.42507+09:00"
+  redis:
+  - apiVersion: v2
+    appVersion: "6.2"
+    created: "2022-03-13T18:48:28.809743+09:00"
+    description: A Helm chart for Kubernetes
+    digest: 9a6d7e0e252400e068df16dade7b96061d1a21a9550c0465c19f2ff204795fda
+    name: redis
+    type: application
+    urls:
+    - redis-1.17.0.tgz
+    version: 1.17.0
+generated: "2022-03-13T18:48:28.779263+09:00"

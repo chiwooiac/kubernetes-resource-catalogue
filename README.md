@@ -14,7 +14,7 @@ helm repo update chiwoo
 품질 관리 활동은 꼭 필요하다고 생각 합니다. 
 
 ```
-## 서비스 배포
+## Chart 서비스
 
 ### hello
 ```
@@ -74,4 +74,11 @@ kubectl -n cs exec -it redis-0 -- sh
 127.0.0.1:6379> auth <your_redis_password>
 OK
 127.0.0.1:6379> info replication
+```
+
+## 서비스 배포
+```shell
+helm install kafka-kraft chiwoo/kafka-kraft --namespace cs
+helm install mysql chiwoo/mysql --namespace cs
+helm install mysql chiwoo/redis --namespace cs
 ```
