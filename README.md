@@ -55,6 +55,23 @@ helm install kafka-kraft chiwoo/kafka-kraft --namespace cs
 helm upgrade --install kafka-kraft chiwoo/kafka-kraft --namespace cs
 ```
 
-# 0@kafka-0.kafka-kraft-svc.cs.svc.cluster.local:9093,1@kafka-1.kafka-kraft-svc.cs.svc.cluster.local:9093,2@kafka-2.kafka-kraft-svc.cs.svc.cluster.local:9093
-
 ### redis
+A Helm chart for redis cluster.
+
+```
+helm install redis chiwoo/redis --namespace cs 
+
+# upgrade new version
+helm upgrade --install redis chiwoo/redis --namespace cs
+```
+
+- redis cli
+```
+kubectl -n cs exec -it redis-0 -- sh
+
+# redis-cli
+/prompt # redis-cli
+127.0.0.1:6379> auth <your_redis_password>
+OK
+127.0.0.1:6379> info replication
+```

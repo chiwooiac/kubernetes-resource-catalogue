@@ -1,0 +1,11 @@
+apiVersion: v2
+name: redis
+description: A Helm chart for Kubernetes
+
+type: application
+
+# helm chart version (GoVersion of helm version)
+version: "1.17.0"
+
+# kafka-kraft version
+appVersion: "6.2"
