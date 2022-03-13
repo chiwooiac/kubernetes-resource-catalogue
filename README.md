@@ -55,6 +55,16 @@ helm install kafka-kraft chiwoo/kafka-kraft --namespace cs
 helm upgrade --install kafka-kraft chiwoo/kafka-kraft --namespace cs
 ```
 
+- kafka cli
+```
+
+kubectl -n cs exec -it kafka-0 -- sh
+
+bin/kafka-topics.sh \
+    --bootstrap-server localhost:9092 \
+    --list
+```
+
 ### redis
 A Helm chart for redis cluster (sentinel).
 
@@ -78,9 +88,9 @@ OK
 
 ## 서비스 배포
 ```shell
-helm install kafka-kraft chiwoo/kafka-kraft --namespace cs
-helm install mysql chiwoo/mysql --namespace cs
-helm install mysql chiwoo/redis --namespace cs
+helm install kafka-kraft chiwoo/kafka-kraft --namespace cs \
+&& helm install mysql chiwoo/mysql --namespace cs \
+&& helm install mysql chiwoo/redis --namespace cs
 ```
 
 ## Appendix
