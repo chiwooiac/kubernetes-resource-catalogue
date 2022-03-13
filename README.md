@@ -56,7 +56,7 @@ helm upgrade --install kafka-kraft chiwoo/kafka-kraft --namespace cs
 ```
 
 ### redis
-A Helm chart for redis cluster.
+A Helm chart for redis cluster (sentinel).
 
 ```
 helm install redis chiwoo/redis --namespace cs 
@@ -82,3 +82,9 @@ helm install kafka-kraft chiwoo/kafka-kraft --namespace cs
 helm install mysql chiwoo/mysql --namespace cs
 helm install mysql chiwoo/redis --namespace cs
 ```
+
+## Appendix
+
+### Redis
+- [redis cluster comparison](https://medium.com/hepsiburadatech/redis-solutions-standalone-vs-sentinel-vs-cluster-f46e703307a9)
+- [redis cluster not sentinel](https://github.com/sobotklp/kubernetes-redis-cluster)
