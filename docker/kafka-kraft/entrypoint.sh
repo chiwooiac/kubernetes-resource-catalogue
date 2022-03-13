@@ -8,13 +8,15 @@ if [ ${HOSTNAME:0:5} != "kafka" ]; then
 fi
 
 [ -f ${SHOW_ENV_VARS+1} ] && SHOW_ENV_VARS=1
-[ -f ${KAFKA_CLUSTER_ID+1} ] && KAFKA_CLUSTER_ID="MTM2NkYwNjgyQTBGNEZBOU"
-[ -f ${KAFKA_LOGS_HOME+1} ] && KAFKA_LOGS_HOME="/data/kafka"
 [ -f ${SERVICE+1} ] && SERVICE="kafka-service"
 [ -f ${NAMESPACE+1} ] && NAMESPACE="kafka"
 [ -f ${REPLICAS+1} ] && REPLICAS=3
 [ -f ${LOG_RETENTION_HOURS+1} ] && LOG_RETENTION_HOURS=4
 [ -f ${REPLICATION_FACTOR+1} ] && REPLICATION_FACTOR=1
+[ -f ${KAFKA_HOME+1} ] && KAFKA_HOME="/opt/kafka"
+[ -f ${KAFKA_CONFIG+1} ] && KAFKA_CONFIG="${KAFKA_HOME}/config/kraft/server.properties"
+[ -f ${KAFKA_CLUSTER_ID+1} ] && KAFKA_CLUSTER_ID="MTM2NkYwNjgyQTBGNEZBOU"
+[ -f ${KAFKA_LOGS_HOME+1} ] && KAFKA_LOGS_HOME="/data/kafka"
 [ -f ${KAFKA_HEAP_OPTS+1} ] && KAFKA_HEAP_OPTS="-Xmx1G -Xms1G"
 [ -f ${KAFKA_OPTS+1} ] && KAFKA_OPTS="-Djava.net.preferIPv4Stack=True"
 
@@ -29,8 +31,8 @@ for i in $( seq 0 $REPLICAS); do
         CONTROLLER_QUORUM_VOTERS=${CONTROLLER_QUORUM_VOTERS::-1}
     fi
 done
-mkdir -p ${KAFKA_LOGS_HOME}/${NODE_ID}
-# && sudo chown kafka:kafka -R ${KAFKA_LOGS_HOME}
+
+sudo mkdir -p ${KAFKA_LOGS_HOME}/${NODE_ID} && sudo chown 910:910 -R ${KAFKA_LOGS_HOME}
 
 export CLUSTER_ID=${KAFKA_CLUSTER_ID}
 
@@ -71,6 +73,8 @@ sed -e "s+^node.id=.*+node.id=${NODE_ID}+" \
 -e "s+^log.dirs=.*+log.dirs=${KAFKA_LOGS_HOME}/${NODE_ID}+" \
 ${KAFKA_CONFIG} > server.properties.updated \
 && mv server.properties.updated ${KAFKA_CONFIG}
+
+# KAFKA_CONFIG="${KAFKA_HOME}/config/kraft/server.properties"
 
 sleep 20
 

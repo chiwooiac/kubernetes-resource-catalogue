@@ -16,13 +16,8 @@ RUN apt-get update && apt-get -y install unzip wget \
 && ln -s /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION} ${KAFKA_HOME} \
 && rm -rf /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz
 
-#    adoptopenjdk/openjdk11:jre-11.0.14.1_1-alpine - 50.24 MB
-#    adoptopenjdk/openjdk11:jre-11.0.14_9-debianslim - 79.63 MB
-#    adoptopenjdk/openjdk11:jre-11.0.14_9-ubuntu   - 83.76 MB
-#   docker pull openjdk:17-jdk-alpine
-#   docker pull openjdk:11-slim-buster         - 223.12 MB
-#   openjdk:11-jre-slim                        - 76.39 MB
-#   openjdk:11-jre-slim-buster                 - 73.99 MB
+
+#
 FROM openjdk:11-jre-slim-buster
 
 ENV KAFKA_VERSION="3.1.0"
@@ -62,3 +57,4 @@ WORKDIR $KAFKA_HOME
 ENTRYPOINT ["./entrypoint.sh"]
 
 # docker build -t "symplesims/kafa-kraft:3.1.0-jre11" .
+# symplesims/kafa-kraft:3.1.0-jre11
