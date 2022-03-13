@@ -60,9 +60,24 @@ helm upgrade --install kafka-kraft chiwoo/kafka-kraft --namespace cs
 
 kubectl -n cs exec -it kafka-0 -- sh
 
-bin/kafka-topics.sh \
-    --bootstrap-server localhost:9092 \
-    --list
+# 토픽 생성
+kafka-topics.sh --bootstrap-server localhost:9092 --create --topic my-topic --replication-factor 1 --partitions 1
+
+# 토픽 정보 조회
+kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic my-topic
+    
+# 토픽 목록 조회
+kafka-topics.sh --bootstrap-server localhost:9092 --list
+
+# 토픽 삭제
+kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic my-topic 
+
+# Produce 테스트
+# 먼저 topic 에 연결 하여 터미널에 접속 후 메시지를 입력 한다.
+kafka-console-producer.sh --broker-list localhost:9092 --topic my-topic
+
+# Consume 테스트
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic my-topic --from-beginning
 ```
 
 ### redis
