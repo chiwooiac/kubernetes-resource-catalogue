@@ -1,9 +1,9 @@
-# catalogue-resource
-kubernetes catalogue-resource
+# kubernetes-resource-catalogue
+kubernetes resource catalogue
 
 ## repo 추가
 ```
-helm repo add chiwoo https://chiwooiac.github.io/catalogue-resource/helm-charts
+helm repo add chiwoo https://chiwooiac.github.io/kubernetes-resource-catalogue/helm-charts
 
 # repository update index
 helm repo update chiwoo
@@ -20,7 +20,7 @@ helm repo update chiwoo
 ```
 helm search repo hello
 
-# 최근에 새롭게 올라온 릴리즈가 있는지 확인 하기 위해 update 명령으로 저장소를 갱신 하자
+# 최근에 새롭게 올라온 릴리즈가 있는지 확인 하기 위해 update 명령으로 저장소를 갱신 합니다.
 helm repo update chiwoo
 
 # hello 서비스 배포

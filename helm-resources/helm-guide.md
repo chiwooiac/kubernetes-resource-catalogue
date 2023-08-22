@@ -139,7 +139,7 @@ helm create hello
 aa
 ```
 
-[deployment.yaml](./samples/hello/templates/deployment.yaml)
+[deployment.yaml](example/hello/templates/deployment.yaml)
 
 Helm 의 템플릿 지시어는 `{{ }}` 으로 정의 합니다.
 
