@@ -1,0 +1,20 @@
+version: "3"
+
+volumes:
+  jenkins-data:
+    driver: local
+
+services:
+  jenkins:
+    image: jenkins-docker:lts-jdk11
+    user: root
+    environment:
+      - USER_UID=0
+      - USER_GID=0
+    restart: always
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8085:8080"
+      - "50000:50000"

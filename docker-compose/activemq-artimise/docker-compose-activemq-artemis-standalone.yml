@@ -1,0 +1,25 @@
+version: "3"
+
+#volumes:
+#  hostdir:
+#    driver: local
+
+services:
+  artemis:
+    restart: always
+    image: vromero/activemq-artemis:2.16.0-alpine
+    ports:
+      - "8161:8161"
+      - "21616:61616"
+      - "21613:61613"
+      - "1199:1199"
+      - "1198:1198"
+    environment:
+      - ENABLE_JMX=true
+      - JMX_PORT=1199
+      - JMX_RMI_PORT=1198
+      - ARTEMIS_USERNAME=admin
+      - ARTEMIS_PASSWORD=admin1234
+    hostname: artemis
+    # user: root
+

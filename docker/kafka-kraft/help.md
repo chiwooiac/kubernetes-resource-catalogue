@@ -58,3 +58,7 @@ log.segment.bytes=1073741824
 # 로그파일 정리 체크 주기 - 5분 
 log.retention.check.interval.ms=300000
 ```
+
+## Reference
+- [Kafka Quickstart](https://kafka.apache.org/quickstart)
+- [Kafka Documentation](https://kafka.apache.org/documentation/)
