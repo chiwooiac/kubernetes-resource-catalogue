@@ -6,8 +6,9 @@ version: "3"
 
 services:
   artemis:
-    restart: always
     image: vromero/activemq-artemis:2.16.0-alpine
+    container_name: activemq-artemis
+    restart: always
     ports:
       - "8161:8161"
       - "21616:61616"
@@ -23,3 +24,4 @@ services:
     hostname: artemis
     # user: root
 
+# docker-compose -f ./docker-compose-h2-standalone.yml up -d
