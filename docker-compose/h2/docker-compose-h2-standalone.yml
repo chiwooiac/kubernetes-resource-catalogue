@@ -8,16 +8,23 @@ services:
   # H2 database
   h2:
     image: oscarfonts/h2:2.1.210
-    container_name: h2
-    restart: always
+    container_name: h2-svc
     ports:
       - "1521:1521"
       - "81:81"
     environment:
-      - H2_OPTIONS=-ifNotExists
+      - H2_OPTIONll
+      - S=-ifNotExists
+    restart: always
+    networks:
+      - my-bridge
     volumes:
       - h2-data:/opt/h2-data
       - /Users/Shared/h2/h2-data:/opt/h2-data
+
+networks:
+  my-bridge:
+    driver: bridge
 
 # docker run -d -p 1521:1521 -p 81:81 -v //Users/Shared/h2/h2-data::/opt/h2-data --name=h2 oscarfonts/h2:2.1.210
 # docker-compose -f ./docker-compose-h2-standalone.yml up -d

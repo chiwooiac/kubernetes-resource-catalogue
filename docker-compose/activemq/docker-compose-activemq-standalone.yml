@@ -3,7 +3,7 @@ version: "3"
 services:
   activemq:
     image: rmohr/activemq:5.15.9-alpine
-    container_name: activemq
+    container_name: activemq-svc
     ports:
       - "5672:5672"
       - "8161:8161"
@@ -11,5 +11,9 @@ services:
     restart: always
     # hostname: artemis
     # user: root
+    networks:
+      - my-bridge
 
-
+networks:
+  my-bridge:
+    driver: bridge

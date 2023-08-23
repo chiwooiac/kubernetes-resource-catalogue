@@ -4,10 +4,16 @@ services:
   ## mongo
   mongo:
     image: mongo:7.0.0
-    container_name: mongo
+    container_name: mongo-svc
     environment:
       - MONGODB_DATABASE="mongo"
     ports:
       - "27017:27017"
     expose:
       - "27017"
+    networks:
+      - my-bridge
+
+networks:
+  my-bridge:
+    driver: bridge
